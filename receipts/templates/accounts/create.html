@@ -1,14 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <main>
-        <div>
-            <h1>Create Account</h1>
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button>Create</button>
-            </form>
-        </div>
-    </main>
+<header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'signup' %}">Signup</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <div>
+        <h1>Create Account</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button>Create</button>
+        </form>
+    </div>
+</main>
 {% endblock content %}

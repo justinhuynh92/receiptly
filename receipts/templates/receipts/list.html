@@ -1,32 +1,49 @@
 {% extends 'base.html' %}
 
-    {% block content %}
-    <main>
-        <h1>My Receipts</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Vendor</th>
-                    <th>Total</th>
-                    <th>Tax</th>
-                    <th>Date</th>
-                    <th>Category</th>
-                    <th>Account</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for receipt in receipts %}
-                <tr>
-                    <td>{{ receipt.vendor }}</td>
-                    <td>{{ receipt.total }}</td>
-                    <td>{{ receipt.tax }}</td>
-                    <td>{{ receipt.date|date:"m/d/y" }}</td>
-                    <td>{{ receipt.category.name }}</td>
-                    <td>{{ receipt.account.name }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </main>
-    {% endblock content %}
+{% block content %}
+<header>
+    <nav>
+        <ul>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+            <li><a href="{% url 'create_receipt' %}">Create Receipt</a></li>
+            <li><a href="{% url 'category_list' %}">Category List</a></li>
+            <li><a href="{% url 'account_list' %}">Account List</a></li>
+            <li><a href="{% url 'create_category' %}">Create Category</a></li>
+            <li><a href="{% url 'create_account' %}">Create Account</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'signup' %}">Signup</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
 
+<main>
+    <h1>My Receipts</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Vendor</th>
+                <th>Total</th>
+                <th>Tax</th>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Account</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for receipt in receipts %}
+            <tr>
+                <td>{{ receipt.vendor }}</td>
+                <td>{{ receipt.total }}</td>
+                <td>{{ receipt.tax }}</td>
+                <td>{{ receipt.date|date:"m/d/y" }}</td>
+                <td>{{ receipt.category.name }}</td>
+                <td>{{ receipt.account.name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+{% endblock content %}
